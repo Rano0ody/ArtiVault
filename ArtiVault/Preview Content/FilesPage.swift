@@ -13,8 +13,7 @@ struct FilesPage: View {
 
     var body: some View {
         ZStack(alignment: .leading) {
-            Color.black
-                .edgesIgnoringSafeArea(.all)
+          
 
             VStack {
                 ScrollView {
@@ -22,17 +21,17 @@ struct FilesPage: View {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
                                 .fill(Color(.systemGray5))
-                                .frame(width: 250, height: 150)
+                                .frame(width: 440, height: 320)
                             
                             Image(systemName: "plus.circle.fill")
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: 60, height: 60)
                                 .clipShape(Circle())
-                                .foregroundColor(.white)
+                                .foregroundColor(.orange)
 
-                            Text("Add New File")
-                                .foregroundColor(.white)
+                            Text("Add New canves")
+                                .foregroundColor(.orange)
                                 .font(.headline)
                                 .padding(.top, 80) // لتكون النصوص في أسفل الصورة
                                 .frame(width: 250, height: 150)
@@ -46,7 +45,7 @@ struct FilesPage: View {
                             ZStack {
                                 RoundedRectangle(cornerRadius: 10)
                                     .fill(Color(.systemGray5))
-                                    .frame(width: 250, height: 150)
+                                    .frame(width: 440, height: 320)
                                 
                                 Image(systemName: "photo.fill")
                                     .resizable()

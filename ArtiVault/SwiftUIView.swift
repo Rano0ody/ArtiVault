@@ -1,9 +1,9 @@
-import SwiftUI
+/*import SwiftUI
 import SwiftData
 import PencilKit
 
 struct SwiftUIView: View {
-    @Environment(\.modelContext) private var context
+   @Environment(\.modelContext) private var context
     @State private var files: [FileEntity] = []
     @State private var isAddingFile = false
     @State private var isAddingCanvas = false
@@ -316,3 +316,4 @@ struct CanvasRepresentable: UIViewRepresentable {
 #Preview {
     SwiftUIView()
 }
+*/

@@ -9,29 +9,30 @@ import SwiftData
 import PencilKit
 import UIKit
 
+import SwiftData
+
+import SwiftData
+import Foundation
+
 @Model
 class FileEntity {
-    var id: UUID
+    var id: UUID = UUID()
     var name: String
-    var canvases: [CanvasEntity]
+    var canvases: [CanvasEntity] = [] // ✅ Ensure canvases are stored within each file
 
-    init(name: String, canvases: [CanvasEntity] = []) {
-        self.id = UUID()
+    init(name: String) {
         self.name = name
-        self.canvases = canvases
     }
 }
 
 @Model
 class CanvasEntity {
-    var id: UUID
+    var id: UUID = UUID()
     var name: String
-    var drawingData: Data? // Store PencilKit drawing as Data
+    var drawingData: Data? // ✅ Stores PencilKit drawing as Data
 
-    init(name: String, drawingData: Data? = nil) {
-        self.id = UUID()
+    init(name: String) {
         self.name = name
-        self.drawingData = drawingData
     }
 }
 
