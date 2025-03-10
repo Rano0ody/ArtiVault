@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import PencilKit
 
 struct GallaryUI: View {
     @Environment(\.modelContext) private var context
@@ -51,12 +52,21 @@ struct GallaryUI: View {
                                         .fill(Color(.systemGray5))
                                         .frame(width: 440, height: 320)
                                     
-                                    Image(systemName: "paintbrush.pointed.fill")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width: 60, height: 60)
-                                        .clipShape(Circle())
-                                        .foregroundColor(.white)
+                                    if let image = loadDrawingImage(from: canvas) {
+                                        Image(uiImage: image)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 440, height: 320)
+                                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                                    } else {
+                                        Image(systemName: "paintbrush.pointed.fill")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 60, height: 60)
+                                            .clipShape(Circle())
+                                            .foregroundColor(.white)
+                                    }
+
                                     
                                     // 🔹 Correctly Display Canvas Name
                                     Text(canvas.name)
@@ -148,6 +158,24 @@ struct GallaryUI: View {
 
         newCanvasName = "" // Reset input field
     }
+    
+    // 🔹 Convert `PKDrawing` to `UIImage`
+       private func loadDrawingImage(from canvas: CanvasEntity) -> UIImage? {
+           guard let data = canvas.drawingData else { return nil }
+           do {
+               let drawing = try PKDrawing(data: data)
+               let renderer = UIGraphicsImageRenderer(size: CGSize(width: 440, height: 320))
+               return renderer.image { context in
+                   UIColor.white.setFill()
+                   context.fill(CGRect(x: 0, y: 0, width: 440, height: 320))
+                   drawing.image(from: CGRect(origin: .zero, size: CGSize(width: 440, height: 320)), scale: 1)
+                       .draw(in: CGRect(origin: .zero, size: CGSize(width: 440, height: 320)))
+               }
+           } catch {
+               print("❌ Failed to load drawing: \(error)")
+               return nil
+           }
+       }
 
     // 🔹 Grid Columns Configuration
     var columns: [GridItem] {
