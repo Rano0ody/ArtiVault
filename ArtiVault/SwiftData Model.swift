@@ -8,17 +8,15 @@
 import SwiftData
 import PencilKit
 import UIKit
-
-import SwiftData
-
 import SwiftData
 import Foundation
 
+
 @Model
-class FileEntity {
+class FileEntity: Identifiable {
     var id: UUID = UUID()
     var name: String
-    var canvases: [CanvasEntity] = [] // ✅ Ensure canvases are stored within each file
+    var canvases: [CanvasEntity] = [] // ✅ Relationship with CanvasEntity
 
     init(name: String) {
         self.name = name
@@ -26,7 +24,7 @@ class FileEntity {
 }
 
 @Model
-class CanvasEntity {
+class CanvasEntity: Identifiable {
     var id: UUID = UUID()
     var name: String
     var drawingData: Data? // ✅ Stores PencilKit drawing as Data
@@ -55,4 +53,8 @@ func loadDrawing(from canvas: CanvasEntity) -> PKDrawing {
         print("Failed to load drawing: \(error)")
         return PKDrawing()
     }
+}
+
+enum ToolType {
+    case pen, eraser
 }
