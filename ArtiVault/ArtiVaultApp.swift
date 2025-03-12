@@ -7,12 +7,9 @@
 
 import SwiftUI
 import SwiftData
-import AppIntents
 
 @main
 struct ArtiVaultApp: App {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate // ✅ إضافة دعم URL Scheme
-
     var container: ModelContainer
 
     init() {
@@ -21,12 +18,6 @@ struct ArtiVaultApp: App {
             container = try ModelContainer(for: CanvasEntity.self, FileEntity.self, configurations: configuration)
         } catch {
             fatalError("❌ Failed to configure SwiftData container: \(error.localizedDescription)")
-        }
-    }
-
-            container = try ModelContainer(for: CanvasEntity.self, FileEntity.self, configurations: config1, config2)
-        } catch {
-            fatalError("Failed to configure SwiftData container.")
         }
     }
 
