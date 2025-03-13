@@ -6,98 +6,34 @@ struct GalleryUI: View {
     @Environment(\.modelContext) private var context
     @Query private var folders: [FileEntity]
     
+    @State private var showSidebar = false
     @State private var selectedFolder: FileEntity?
     @State private var showNewFolderSheet = false
     @State private var newFolderName = ""
     @State private var showCanvasSheet = false
     @State private var newCanvasName = ""
-
+    
     var body: some View {
-        NavigationStack {
-            NavigationSplitView {
-                VStack {
-                    List(selection: $selectedFolder) {
-                        ForEach(folders) { folder in
-                            Text(folder.name)
-                                .tag(folder)
-                        }
-                        .onDelete(perform: deleteFolder)
+        NavigationSplitView {
+            /// ✅ Sidebar - Now properly structured inside `NavigationSplitView`
+            List(selection: $selectedFolder) {
+                Section(header: Text("Folders").font(.headline).foregroundColor(.orange)) {
+                    ForEach(folders) { folder in
+                        Text(folder.name)
+                            .tag(folder)
                     }
-                   
+                    .onDelete(perform: deleteFolder)
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: { showNewFolderSheet = true }) {
                         Label("Add Folder", systemImage: "folder.badge.plus")
                     }
-                    .buttonStyle(.borderedProminent)
-                    .padding()
                 }
-            } detail: {
-                VStack {
-                    if let selectedFolder = selectedFolder {
-                        Text(selectedFolder.name)
-                            .font(.largeTitle)
-                            .bold()
-
-                        ScrollView {
-                            LazyVGrid(columns: columns, spacing: 10) {
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .fill(Color(.systemGray5))
-                                        .frame(width: 440, height: 320)
-                                    
-                                    Image(systemName: "plus.circle.fill")
-                                        .resizable()
-                                        .frame(width: 60, height: 60)
-                                        .foregroundColor(.orange)
-
-                                    Text("Add New Canvas")
-                                        .foregroundColor(.orange)
-                                        .font(.headline)
-                                        .padding(.top, 80)
-                                }
-                                .onTapGesture {
-                                    showCanvasSheet = true
-                                }
-
-                                // ✅ Display Canvases
-                                ForEach(selectedFolder.canvases) { canvas in
-                                    NavigationLink(destination: DrawingCanvasView(canvasEntity: canvas)) {
-                                        ZStack {
-                                            RoundedRectangle(cornerRadius: 10)
-                                                .fill(Color(.systemGray5))
-                                                .frame(width: 440, height: 320)
-
-                                            if let image = loadDrawingImage(from: canvas) {
-                                                Image(uiImage: image)
-                                                    .resizable()
-                                                    .scaledToFit()
-                                                    .frame(width: 440, height: 320)
-                                                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                                            } else {
-                                                VStack {
-                                                    Image(systemName: "paintbrush.pointed.fill")
-                                                        .resizable()
-                                                        .frame(width: 60, height: 60)
-                                                        .foregroundColor(.white)
-
-                                                    Text(canvas.name)
-                                                        .foregroundColor(.white)
-                                                        .font(.headline)
-                                                        .padding(.top, 5)
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    } else {
-                        Text("Select a folder to view its canvases")
-                            .font(.title2)
-                            .foregroundColor(.gray)
-                    }
-                }
-                .animation(.default, value: selectedFolder)
             }
+        } detail: {
+            mainContentSection
         }
         .sheet(isPresented: $showNewFolderSheet) { addFolderSheet() }
         .sheet(isPresented: $showCanvasSheet) { addCanvasSheet() }
@@ -110,10 +46,93 @@ struct GalleryUI: View {
         }
     }
     
+    /// ✅ Main Content Section
+    private var mainContentSection: some View {
+        Group {
+            VStack {
+                if let selectedFolder = selectedFolder {
+                    folderHeader(selectedFolder)
+                    canvasGrid(for: selectedFolder)
+                } else {
+                    emptyStateView
+                }
+            }
+            .animation(.default, value: selectedFolder)
+        }
+    }
+
+    /// ✅ Folder Header
+    private func folderHeader(_ folder: FileEntity) -> some View {
+        Text(folder.name)
+            .font(.largeTitle)
+            .bold()
+    }
+
+    /// ✅ Grid of Canvases
+    private func canvasGrid(for folder: FileEntity) -> some View {
+        ScrollView {
+            LazyVStack(alignment: .leading, spacing: 10) {
+                addNewCanvasButton
+                ForEach(folder.canvases.chunked(into: 3), id: \.self) { rowCanvases in
+                    canvasRow(rowCanvases, context: context)
+                }
+            }
+        }
+    }
+
+    /// ✅ Row of Canvases with ModelContext
+    private func canvasRow(_ rowCanvases: [CanvasEntity], context: ModelContext) -> some View {
+        HStack(spacing: 10) {
+            ForEach(rowCanvases) { canvas in
+                NavigationLink(destination: DrawingCanvasView(canvasEntity: canvas, context: context)) {
+                    canvasThumbnail(canvas: canvas)
+                }
+            }
+            if rowCanvases.count < 3 {
+                Spacer()
+            }
+        }
+    }
+
+    /// ✅ Empty State View
+    private var emptyStateView: some View {
+        Text("Select a folder to view its canvases")
+            .font(.title2)
+            .foregroundColor(.gray)
+    }
+
+    /// ✅ Add New Canvas Button
+    private var addNewCanvasButton: some View {
+        HStack {
+            ZStack {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color(.systemGray5))
+                    .frame(width: 440, height: 320)
+                
+                Image(systemName: "plus.circle.fill")
+                    .resizable()
+                    .frame(width: 60, height: 60)
+                    .foregroundColor(.orange)
+                
+                Text("Add New Canvas")
+                    .foregroundColor(.orange)
+                    .font(.headline)
+                    .padding(.top, 80)
+            }
+            .onTapGesture {
+                showCanvasSheet = true
+            }
+            
+            Spacer()
+        }
+    }
+    
     private func deleteFolder(at offsets: IndexSet) {
         for index in offsets {
-            context.delete(folders[index])
+            let folderToDelete = folders[index]
+            context.delete(folderToDelete)
         }
+        try? context.save()
     }
     
     private func addFolderSheet() -> some View {
@@ -156,8 +175,10 @@ struct GalleryUI: View {
                 Button("Save") {
                     if let folder = selectedFolder, !newCanvasName.isEmpty {
                         let newCanvas = CanvasEntity(name: newCanvasName)
-                        context.insert(newCanvas) // ✅ Save before appending
+                        context.insert(newCanvas)
                         folder.canvases.append(newCanvas)
+                        
+                        try? context.save()
                         newCanvasName = ""
                         showCanvasSheet = false
                     }
@@ -169,25 +190,49 @@ struct GalleryUI: View {
         .padding()
     }
     
-    private func loadDrawingImage(from canvas: CanvasEntity) -> UIImage? {
-        guard let data = canvas.drawingData else { return nil }
-        do {
-            let drawing = try PKDrawing(data: data)
-            let imageSize = CGSize(width: 440, height: 320)
-            let renderer = UIGraphicsImageRenderer(size: imageSize)
-            return renderer.image { context in
-                UIColor.white.setFill()
-                context.fill(CGRect(origin: .zero, size: imageSize))
-                drawing.image(from: CGRect(origin: .zero, size: imageSize), scale: 1)
-                    .draw(in: CGRect(origin: .zero, size: imageSize))
+    private func canvasThumbnail(canvas: CanvasEntity) -> some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color(.systemGray5))
+                .frame(width: 440, height: 320)
+            
+            if let image = loadDrawingImage(from: canvas) {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 440, height: 320)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            } else {
+                VStack {
+                    Image(systemName: "paintbrush.pointed.fill")
+                        .resizable()
+                        .frame(width: 60, height: 60)
+                        .foregroundColor(.orange)
+                    
+                    Text(canvas.name)
+                        .foregroundColor(.black)
+                        .font(.headline)
+                        .padding(.top, 5)
+                }
             }
-        } catch {
-            print("Failed to render drawing: \(error)")
-            return nil
         }
     }
     
-    let columns = [GridItem(.adaptive(minimum: 200))]
+    private func loadDrawingImage(from canvas: CanvasEntity) -> UIImage? {
+        if let data = canvas.drawingData {
+            return UIImage(data: data)
+        }
+        return nil
+    }
+}
+
+/// ✅ Helper Extension: Chunk Array into Smaller Groups
+extension Array {
+    func chunked(into size: Int) -> [[Element]] {
+        stride(from: 0, to: count, by: size).map {
+            Array(self[$0..<Swift.min($0 + size, count)])
+        }
+    }
 }
 
 #Preview { GalleryUI() }
