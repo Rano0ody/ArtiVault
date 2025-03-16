@@ -106,7 +106,7 @@
       "size" : "83.5x83.5"
     },
     {
-      "filename" : "artivault_resized-2.png",
+      "filename" : "artivault-17.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -313,7 +313,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "artivault 1.png",
+      "filename" : "artivault-17 1.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -520,7 +520,7 @@
           "value" : "tinted"
         }
       ],
-      "filename" : "artivault.png",
+      "filename" : "artivault-17 2.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
