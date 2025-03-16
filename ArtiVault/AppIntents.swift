@@ -38,14 +38,19 @@ struct OpenNewCanvasIntent: AppIntent {
 
     @MainActor
     func perform() async throws -> some IntentResult {
+        print("✅ Siri is trying to open ArtiVault") // 🔥 تحقق من أن Siri يعمل
+
         // ✅ إذا كان التطبيق مغلقًا، فتحه باستخدام URL Scheme
         if let url = URL(string: "ArtiVault://openCanvas") {
-            await UIApplication.shared.open(url) // ✅ حل المشكلة بإضافة `await`
+            print("🚀 Opening ArtiVault via URL Scheme")
+            await UIApplication.shared.open(url)
         }
 
-        // ✅ إرسال الإشعار لفتح الكانفس عند تشغيل التطبيق
+        // ✅ إرسال الإشعار لفتح الكانفس داخل التطبيق
         NotificationCenter.default.post(name: .openNewCanvas, object: nil)
+        print("📢 Notification sent to open canvas")
 
         return .result()
     }
+
 }

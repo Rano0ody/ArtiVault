@@ -27,7 +27,7 @@ struct ContentView: View {
                 }
             }
             .onReceive(NotificationCenter.default.publisher(for: .openNewCanvas)) { _ in
-                print("📢 Received openNewCanvas notification!") // 🔥 تحقق من وصول الإشعار
+                print("📢 Received Siri request to open canvas!") // 🔥 تحقق من وصول الإشعار
                 isCanvasOpen = true
             }
 
