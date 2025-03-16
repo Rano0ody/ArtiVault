@@ -24,7 +24,8 @@ struct ArtiVaultApp: App {
     var body: some Scene {
         WindowGroup {
             GalleryUI()
+                .modelContainer(container)
         }
-        .modelContainer(container)
+        
     }
 }
