@@ -14,11 +14,11 @@ struct IFShortcuts: AppShortcutsProvider {
             AppShortcut(
                 intent: OpenNewCanvasIntent(),
                 phrases: [
-                    "Open a new canvas in ArtiVault",
-                    "Create a canvas in ArtiVault",
-                    "Start a new project in ArtiVault",
-                    "Begin drawing in ArtiVault",
-                    "Launch a canvas in ArtiVault"
+                    "Open a new canvas in \(.applicationName)",
+                    "Create a canvas in \(.applicationName)",
+                    "Start a new project \(.applicationName)",
+                    "Begin drawing in \(.applicationName)",
+                    "Launch a canvas in \(.applicationName)"
                 ],
                 shortTitle: "Open New Canvas",
                 systemImageName: "doc.badge.plus"
