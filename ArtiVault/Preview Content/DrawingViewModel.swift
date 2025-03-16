@@ -12,6 +12,7 @@ class DrawingViewModel: ObservableObject {
     @Published var selectedBrush: PKInkingTool.InkType = .pen
     @Published var layers: [(drawing: PKDrawing, isVisible: Bool)] = [(PKDrawing(), true)]
     @Published var currentLayerIndex: Int = 0
+    var brushWidth: CGFloat = 3.0  // Default brush width
     
     enum ToolType {
         case pen, eraser
@@ -37,7 +38,7 @@ class DrawingViewModel: ObservableObject {
         DispatchQueue.main.async {
             switch tool {
             case .pen:
-                self.canvasView.tool = PKInkingTool(self.selectedBrush, color: self.selectedColor, width: 3.0)
+                self.canvasView.tool = PKInkingTool(self.selectedBrush, color: self.selectedColor, width: self.brushWidth)
             case .eraser:
                 self.canvasView.tool = PKEraserTool(.bitmap)
             }
@@ -51,6 +52,11 @@ class DrawingViewModel: ObservableObject {
     
     func changeColor(to color: UIColor) {
         self.selectedColor = color
+        changeTool(.pen)
+    }
+    
+    func setBrushWidth(to width: CGFloat) {
+        self.brushWidth = width
         changeTool(.pen)
     }
     
@@ -70,7 +76,7 @@ class DrawingViewModel: ObservableObject {
     func toggleLayerVisibility(at index: Int) {
         guard index >= 0, index < layers.count else { return }
         layers[index].isVisible.toggle()
-        canvasView.drawing = getCombinedDrawing()  // Update drawing immediately
+        canvasView.drawing = getCombinedDrawing()
     }
     
     func getCombinedDrawing() -> PKDrawing {
@@ -133,6 +139,8 @@ struct DrawingCanvasView: View {
     var canvasEntity: CanvasEntity
     @StateObject private var viewModel: DrawingViewModel
     @State private var showColorPicker = false
+    @State private var showBrushSizePicker = false
+    @State private var brushWidthSelection: CGFloat = 3.0
     
     init(canvasEntity: CanvasEntity, context: ModelContext) {
         self.canvasEntity = canvasEntity
@@ -166,19 +174,42 @@ struct DrawingCanvasView: View {
                 } label: {
                     ToolIcon(icon: "pencil.tip")
                 }
-                
+
                 Button(action: { viewModel.changeTool(.eraser) }) {
                     ToolIcon(icon: "eraser")
                 }
-                
+
                 Button(action: { viewModel.undo() }) {
                     ToolIcon(icon: "arrow.uturn.backward")
                 }
-                
+
                 Button(action: { viewModel.redo() }) {
                     ToolIcon(icon: "arrow.uturn.forward")
                 }
-                
+
+                // Brush Width Button (Opens Popover)
+                Button(action: { showBrushSizePicker.toggle() }) {
+                    ToolIcon(icon: "scribble")
+                }
+                .popover(isPresented: $showBrushSizePicker) {
+                    VStack {
+                        Text("Brush Size: \(Int(brushWidthSelection))")
+                        Slider(value: $brushWidthSelection, in: 1...10, step: 0.5)
+                            .frame(width: 200)
+                        
+                        Button("Done") {
+                            viewModel.setBrushWidth(to: brushWidthSelection)
+                            showBrushSizePicker = false
+                        }
+                        .padding()
+                        .background(Color.blue.opacity(0.7))
+                        .foregroundColor(.white)
+                        .clipShape(Capsule())
+                    }
+                    .padding()
+                    .frame(width: 250)
+                }
+
                 Button(action: { showColorPicker.toggle() }) {
                     ToolIcon(icon: "paintpalette")
                 }
@@ -193,16 +224,6 @@ struct DrawingCanvasView: View {
                             .padding()
                     }
                     .frame(width: 250)
-                }
-                
-                Menu {
-                    Button("Add Layer", action: { viewModel.addLayer() })
-                    ForEach(0..<viewModel.layers.count, id: \.self) { index in
-                        Button("Layer \(index + 1)", action: { viewModel.switchLayer(to: index) })
-                        Button(viewModel.layers[index].isVisible ? "Hide Layer" : "Show Layer", action: { viewModel.toggleLayerVisibility(at: index) })
-                    }
-                } label: {
-                    ToolIcon(icon: "square.3.layers.3d")
                 }
             }
             .padding()
@@ -228,6 +249,7 @@ struct ToolIcon: View {
             .shadow(radius: 3)
     }
 }
+
 
 // MARK: - Preview
 struct DrawingCanvasView_Previews: PreviewProvider {
