@@ -1,42 +1,38 @@
 {
   "images" : [
     {
-      "filename" : "artivault-16 1.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
       "size" : "20x20"
     },
     {
-      "filename" : "artivault-15 1.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "3x",
       "size" : "20x20"
     },
     {
-      "filename" : "artivault-13.png",
+      "filename" : "artivault-13 1.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
       "size" : "29x29"
     },
     {
-      "filename" : "artivault-14 1.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "3x",
       "size" : "29x29"
     },
     {
-      "filename" : "artivault-12.png",
+      "filename" : "artivault-12 1.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
       "size" : "38x38"
     },
     {
-      "filename" : "artivault-10 2.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "3x",
@@ -50,63 +46,57 @@
       "size" : "40x40"
     },
     {
-      "filename" : "artivault-8 5.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "3x",
       "size" : "40x40"
     },
     {
-      "filename" : "artivault-8.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
       "size" : "60x60"
     },
     {
-      "filename" : "artivault-7 1.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "3x",
       "size" : "60x60"
     },
     {
-      "filename" : "artivault-6.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
       "size" : "64x64"
     },
     {
-      "filename" : "artivault-5.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "3x",
       "size" : "64x64"
     },
     {
-      "filename" : "artivault-4.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
       "size" : "68x68"
     },
     {
-      "filename" : "artivault-3.png",
+      "filename" : "artivault-3 2.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
       "size" : "76x76"
     },
     {
-      "filename" : "artivault-2.png",
+      "filename" : "artivault-2 1.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
       "size" : "83.5x83.5"
     },
     {
-      "filename" : "artivault-17.png",
+      "filename" : "artivault.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -118,7 +108,6 @@
           "value" : "dark"
         }
       ],
-      "filename" : "artivault-16.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
@@ -131,7 +120,6 @@
           "value" : "dark"
         }
       ],
-      "filename" : "artivault-15 2.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "3x",
@@ -144,7 +132,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "artivault-13 1.png",
+      "filename" : "artivault-13 2.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
@@ -157,7 +145,6 @@
           "value" : "dark"
         }
       ],
-      "filename" : "artivault-14.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "3x",
@@ -170,7 +157,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "artivault-12 1.png",
+      "filename" : "artivault-12 2.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
@@ -183,7 +170,6 @@
           "value" : "dark"
         }
       ],
-      "filename" : "artivault-10 1.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "3x",
@@ -209,7 +195,6 @@
           "value" : "dark"
         }
       ],
-      "filename" : "artivault-8 3.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "3x",
@@ -222,7 +207,6 @@
           "value" : "dark"
         }
       ],
-      "filename" : "artivault-8 1.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
@@ -235,7 +219,6 @@
           "value" : "dark"
         }
       ],
-      "filename" : "artivault-7 2.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "3x",
@@ -248,7 +231,6 @@
           "value" : "dark"
         }
       ],
-      "filename" : "artivault-6 1.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
@@ -261,7 +243,6 @@
           "value" : "dark"
         }
       ],
-      "filename" : "artivault-5 1.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "3x",
@@ -274,7 +255,6 @@
           "value" : "dark"
         }
       ],
-      "filename" : "artivault-4 1.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
@@ -300,7 +280,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "artivault-2 1.png",
+      "filename" : "artivault-2 2.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
@@ -313,7 +293,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "artivault-17 1.png",
+      "filename" : "artivault 1.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -325,7 +305,6 @@
           "value" : "tinted"
         }
       ],
-      "filename" : "artivault-16 2.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
@@ -338,7 +317,6 @@
           "value" : "tinted"
         }
       ],
-      "filename" : "artivault-15.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "3x",
@@ -351,7 +329,7 @@
           "value" : "tinted"
         }
       ],
-      "filename" : "artivault-13 2.png",
+      "filename" : "artivault-13.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
@@ -364,7 +342,6 @@
           "value" : "tinted"
         }
       ],
-      "filename" : "artivault-14 2.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "3x",
@@ -377,7 +354,7 @@
           "value" : "tinted"
         }
       ],
-      "filename" : "artivault-12 2.png",
+      "filename" : "artivault-12.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
@@ -390,7 +367,6 @@
           "value" : "tinted"
         }
       ],
-      "filename" : "artivault-10.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "3x",
@@ -416,7 +392,6 @@
           "value" : "tinted"
         }
       ],
-      "filename" : "artivault-8 4.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "3x",
@@ -429,7 +404,6 @@
           "value" : "tinted"
         }
       ],
-      "filename" : "artivault-8 2.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
@@ -442,7 +416,6 @@
           "value" : "tinted"
         }
       ],
-      "filename" : "artivault-7.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "3x",
@@ -455,7 +428,6 @@
           "value" : "tinted"
         }
       ],
-      "filename" : "artivault-6 2.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
@@ -468,7 +440,6 @@
           "value" : "tinted"
         }
       ],
-      "filename" : "artivault-5 2.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "3x",
@@ -481,7 +452,6 @@
           "value" : "tinted"
         }
       ],
-      "filename" : "artivault-4 2.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
@@ -494,7 +464,7 @@
           "value" : "tinted"
         }
       ],
-      "filename" : "artivault-3 2.png",
+      "filename" : "artivault-3.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
@@ -507,7 +477,7 @@
           "value" : "tinted"
         }
       ],
-      "filename" : "artivault-2 2.png",
+      "filename" : "artivault-2.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
@@ -520,7 +490,7 @@
           "value" : "tinted"
         }
       ],
-      "filename" : "artivault-17 2.png",
+      "filename" : "artivault 2.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
